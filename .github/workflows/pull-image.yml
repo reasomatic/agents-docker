@@ -28,23 +28,23 @@ jobs:
           docker ps
           docker pull ghcr.io/reasomatic/hello_docker:latest
           docker image ls
-          docher ps
+          docker ps
           docker run ghcr.io/reasomatic/hello_docker:latest
           docker image ls
-          docher ps
+          docker ps
       - name: create and push
         run: |
           docker image ls
-          docher ps
+          docker ps
           docker ps -l
           docker commit -p -a "author-here" -m "some-message" $(docker ps -lq) name_of_new_image
           docker image ls
-          docher ps
+          docker ps
           docker tag name_of_new_image ghcr.io/reasomatic/hello_docker:available-v2 
           docker image ls
-          docher ps
+          docker ps
           docker push ghcr.io/reasomatic/hello_docker:available-v2
           docker image ls
-          docher ps
+          docker ps
           docker stop
           docker image ls
