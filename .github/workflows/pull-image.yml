@@ -7,6 +7,10 @@ jobs:
   pullimage:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      packages: write
+
     steps:
       - name: Log in to the Container registry
         uses: docker/login-action@v3
