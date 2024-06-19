@@ -29,7 +29,7 @@ jobs:
           docker image ls
           docker run ghcr.io/reasomatic/hello_docker:latest
           docker image ls
-          docker commit -p -a "author-here" -m "some-message" ghcr.io/reasomatic/hello_docker:latest name_of_new_image
+          docker commit -p -a "author-here" -m "some-message" ghcr.io/reasomatic/hello_docker name_of_new_image
           docker image ls
           docker tag name_of_new_image ghcr.io/reasomatic/hello_docker:available-v2 
           docker image ls
