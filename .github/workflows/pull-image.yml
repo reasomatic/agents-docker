@@ -25,7 +25,7 @@ jobs:
       - name: pulling and running
         run: |
           docker image ls
-          docher ps
+          docker ps
           docker pull ghcr.io/reasomatic/hello_docker:latest
           docker image ls
           docher ps
