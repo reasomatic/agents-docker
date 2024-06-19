@@ -22,18 +22,29 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: pulling
+      - name: pulling and running
         run: |
           docker image ls
+          docher ps
           docker pull ghcr.io/reasomatic/hello_docker:latest
           docker image ls
+          docher ps
           docker run ghcr.io/reasomatic/hello_docker:latest
           docker image ls
-          docker commit -p -a "author-here" -m "some-message" ghcr.io/reasomatic/hello_docker name_of_new_image
+          docher ps
+      - name: create and push
+        run: |
           docker image ls
+          docher ps
+          docker ps -l
+          docker commit -p -a "author-here" -m "some-message" $(docker ps -lq) name_of_new_image
+          docker image ls
+          docher ps
           docker tag name_of_new_image ghcr.io/reasomatic/hello_docker:available-v2 
           docker image ls
+          docher ps
           docker push ghcr.io/reasomatic/hello_docker:available-v2
           docker image ls
+          docher ps
           docker stop
           docker image ls
