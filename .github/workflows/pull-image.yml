@@ -25,5 +25,8 @@ jobs:
       - name: pulling
         run: |
           docker pull ghcr.io/reasomatic/hello_docker:latest
-          docker tag ghcr.io/reasomatic/hello_docker:latest ghcr.io/reasomatic/hello_docker:available
-          docker push ghcr.io/reasomatic/hello_docker:available
+          docker run ghcr.io/reasomatic/hello_docker:latest
+          docker commit -p -a "author_here" -m "your_message" ghcr.io/reasomatic/hello_docker:latest name_of_new_image
+          docker tag name_of_new_image ghcr.io/reasomatic/hello_docker:available-v2 
+          docker push ghcr.io/reasomatic/hello_docker:available-v2
+          docker stop
