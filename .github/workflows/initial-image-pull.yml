@@ -11,11 +11,7 @@ env:
   TARGET_IMAGE: agents-docker
   
 jobs:
-  pullimage:
-    env: 
-      SOURCE: ${{ env.REGISTRY }}/${{ env.SOURCE_NAMESPACE }}/${{ env.SOURCE_IMAGE }}:latest
-      TARGET: ${{ env.REGISTRY }}/${{ env.TARGET_NAMESPACE }}/${{ env.TARGET_IMAGE }}:latest
-      
+  pull-build-push:      
     runs-on: ubuntu-latest
 
     permissions:
