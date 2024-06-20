@@ -5,9 +5,10 @@ on:
 
 env: 
   REGISTRY: ghcr.io
-  SOURCE_NAMESPACE: reasomatic/docker-images-private
-  TARGET_NAMESPACE: reasomatic/agents-docker-images
-  IMAGE_NAME: agents-docker
+  SOURCE_NAMESPACE: reasomatic
+  SOURCE_IMAGE: agents-docker-private
+  TARGET_NAMESPACE: reasomatic
+  TARGET_IMAGE: agents-docker
   
 jobs:
   pullimage:
@@ -31,14 +32,14 @@ jobs:
 
       - name: Pull the Source Image
         run: |
-          docker pull ${{ env.REGISTRY }}/${{ env.SOURCE_NAMESPACE }}/${{ env.IMAGE_NAME }}:latest
+          docker pull ${{ env.REGISTRY }}/${{ env.SOURCE_NAMESPACE }}/${{ env.SOURCE_IMAGE }}:latest
 
       - name: Build New Docker Image
         run: |
-          echo -e "FROM ${{ env.REGISTRY }}/${{ env.SOURCE_NAMESPACE }}/${{ env.IMAGE_NAME }}:latest" > Dockerfile
-          docker build -t ${{ env.REGISTRY }}/${{ env.TARGET_NAMESPACE }}/${{ env.IMAGE_NAME }}:latest .
+          echo -e "FROM ${{ env.REGISTRY }}/${{ env.SOURCE_NAMESPACE }}/${{ env.SOURCE_IMAGE }}:latest" > Dockerfile
+          docker build -t ${{ env.REGISTRY }}/${{ env.TARGET_NAMESPACE }}/${{ env.TARGET_IMAGE }}:latest .
   
       - name: Push New Docker Image Under This Repo
         run: |
-          docker push ${{ env.REGISTRY }}/${{ env.TARGET_NAMESPACE }}/${{ env.IMAGE_NAME }}:latest
+          docker push ${{ env.REGISTRY }}/${{ env.TARGET_NAMESPACE }}/${{ env.TARGET_IMAGE }}:latest
       
