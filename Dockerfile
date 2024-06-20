@@ -1,3 +1,3 @@
-## FROM ghcr.io/reasomatic/agents-docker/agents-docker:latest
+FROM ghcr.io/reasomatic/agents-docker:latest
 
-## RUN [uv]
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "7860"]
