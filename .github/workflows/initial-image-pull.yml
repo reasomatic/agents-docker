@@ -4,11 +4,8 @@ on:
       - main
 
 env: 
-  REGISTRY: ghcr.io
-  SOURCE_NAMESPACE: reasomatic
-  SOURCE_IMAGE: agents-docker-private
-  TARGET_NAMESPACE: reasomatic
-  TARGET_IMAGE: agents-docker
+  SOURCE: ghcr.io/reasomatic/agents-docker-private:latest
+  TARGET: ghcr.io/reasomatic/agents-docker:latest
   
 jobs:
   pull-build-push:      
@@ -32,14 +29,14 @@ jobs:
 
       - name: Pull the Source Image
         run: |
-          docker pull ${{ env.REGISTRY }}/${{ env.SOURCE_NAMESPACE }}/${{ env.SOURCE_IMAGE }}:latest
+          docker pull ${{ env.SOURCE }}
 
       - name: Build New Docker Image
         run: |
-          echo -e "FROM ${{ env.REGISTRY }}/${{ env.SOURCE_NAMESPACE }}/${{ env.SOURCE_IMAGE }}:latest" > Dockerfile
-          docker build -t ${{ env.REGISTRY }}/${{ env.TARGET_NAMESPACE }}/${{ env.TARGET_IMAGE }}:latest .
+          echo -e "FROM ${{ env.SOURCE }}" > Dockerfile
+          docker build -t ${{ env.TARGET }} .
   
       - name: Push New Docker Image Under This Repo
         run: |
-          docker push ${{ env.REGISTRY }}/${{ env.TARGET_NAMESPACE }}/${{ env.TARGET_IMAGE }}:latest
+          docker push ${{ env.TARGET }}
       
