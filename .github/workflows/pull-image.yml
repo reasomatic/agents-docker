@@ -2,7 +2,11 @@ on:
   push: 
     branches:
       - main
-      
+
+env: 
+  IMAGE_SOURCE: ghcr.io/reasomatic/agents-docker-private/agents-docker:latest
+  IMAGE_TARGET: ghcr.io/reasomatic/agents-docker/agents-docker:latest
+  
 jobs:
   pullimage:
     runs-on: ubuntu-latest
@@ -23,24 +27,16 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: pulling 
+      - name: Pull the Source Image
         run: |
-          docker image ls
-          docker ps
-          docker pull ghcr.io/reasomatic/hello_docker:available-v2
-          docker image ls
-          docker ps
+          docker pull ${{ IMAGE_SOURCE }}
 
       - name: Build New Docker Image
         run: |
-          echo -e "FROM ghcr.io/reasomatic/hello_docker:available-v2\n\n# Your modifications here" > Dockerfile
-          docker build -t ghcr.io/reasomatic/agents-docker/hello_docker:final .
-          docker image ls
-          docker ps
+          echo -e "FROM ${{ IMAGE_SOURCE }}" > Dockerfile
+          docker build -t ${{ IMAGE_TARGET }} .
   
-      - name: Push New Docker Image to Public Repository
+      - name: Push New Docker Image Under This Repo
         run: |
-          docker push ghcr.io/reasomatic/agents-docker/hello_docker:final
-          docker image ls
-          docker ps
+          docker push ${{ IMAGE_TARGET }}
       
