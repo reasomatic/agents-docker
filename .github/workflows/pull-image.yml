@@ -23,22 +23,24 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: pulling and running
+      - name: pulling 
         run: |
           docker image ls
           docker ps
           docker pull ghcr.io/reasomatic/hello_docker:available-v2
           docker image ls
           docker ps
+
       - name: Build New Docker Image
         run: |
-          docker build -t new_image ghcr.io/reasomatic/hello_docker:available-v2
+          echo -e "FROM ghcr.io/reasomatic/hello_docker:available-v2\n\n# Your modifications here" > Dockerfile
+          docker build -t ghcr.io/reasomatic/agents-docker/hello_docker:final .
           docker image ls
           docker ps
-          
-      - name: push to public
+  
+      - name: Push New Docker Image to Public Repository
         run: |
-          docker push ghcr.io/reasomatic/agents-docker/hello_docker:latest
+          docker push ghcr.io/reasomatic/agents-docker/hello_docker:final
           docker image ls
           docker ps
       
