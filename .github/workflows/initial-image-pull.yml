@@ -5,8 +5,8 @@ on:
 
 env: 
   REGISTRY: ghcr.io
-  SOURCE_NAMESPACE: reasomatic/agents-docker-private 
-  TARGET_NAMESPACE: reasomatic/agents-docker 
+  SOURCE_NAMESPACE: reasomatic
+  TARGET_NAMESPACE: reasomatic/agents-docker
   IMAGE_NAME: agents-docker
   
 jobs:
