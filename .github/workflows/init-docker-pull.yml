@@ -5,11 +5,11 @@ on:
 
 env: 
   REGISTRY: ghcr.io
-  SOURCE: ghcr.io/reasomatic/agents-docker-private:latest
-  TARGET: ghcr.io/reasomatic/agents-docker:latest
+  SOURCE_IMAGE: ghcr.io/reasomatic/agents-docker-private:latest
+  TARGET_IMAGE: ghcr.io/reasomatic/agents-docker:latest
   
 jobs:
-  pull-build-push:      
+  pull-retag-push:      
     runs-on: ubuntu-latest
 
     permissions:
@@ -30,17 +30,9 @@ jobs:
 
       - name: Pull the Source Image
         run: |
-          docker pull ${{ env.SOURCE }}
+          docker pull ${{ env.SOURCE_IMAGE }}
 
-      #- name: Build New Docker Image
-      #  run: |
-      #    echo -e "FROM ${{ env.SOURCE }}" > Dockerfile
-      #    docker build -t ${{ env.TARGET }} .
-      - name: Retag 
+      - name: Retag and Push; In This Repository
         run: |
-          docker tag ${{ env.SOURCE }} ${{ env.TARGET }}
-          
-      - name: Push New Docker Image Under This Repo
-        run: |
-          docker push ${{ env.TARGET }}
-      
+          docker tag ${{ env.SOURCE_IMAGE }} ${{ env.TARGET_IMAGE }}
+          docker push ${{ env.TARGET_IMAGE }}
