@@ -1,7 +1,6 @@
 FROM ghcr.io/reasomatic/agents-docker:latest
 
 RUN useradd -m -u 1000 user
-
 WORKDIR /app 
 
 COPY --chown=user ./requirements.tx[t] requirements.txt
