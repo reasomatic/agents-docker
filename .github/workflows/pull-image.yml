@@ -10,6 +10,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      id-token: write
 
     steps:
       - name: Checkout repository
@@ -29,20 +30,15 @@ jobs:
           docker pull ghcr.io/reasomatic/hello_docker:latest
           docker image ls
           docker ps
-          docker run ghcr.io/reasomatic/hello_docker:latest
-          docker image ls
-          docker ps
-      - name: create and push
+      - name: Build New Docker Image
         run: |
+          docker build -t ghcr.io/reasomatic/hello_docker:latest .
           docker image ls
           docker ps
-          docker ps -l
-          docker commit -p -a "author-here" -m "some-message" $(docker ps -lq) name_of_new_image
+          
+      - name: push to public
+        run: |
+          docker push ghcr.io/reasomatic/agents-docker/hello_docker:latest
           docker image ls
           docker ps
-          docker tag name_of_new_image ghcr.io/reasomatic/hello_docker:available-v2 
-          docker image ls
-          docker ps
-          docker push ghcr.io/reasomatic/hello_docker:available-v2
-          docker image ls
-          docker ps
+      
