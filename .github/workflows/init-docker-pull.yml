@@ -32,11 +32,14 @@ jobs:
         run: |
           docker pull ${{ env.SOURCE }}
 
-      - name: Build New Docker Image
+      #- name: Build New Docker Image
+      #  run: |
+      #    echo -e "FROM ${{ env.SOURCE }}" > Dockerfile
+      #    docker build -t ${{ env.TARGET }} .
+      - name: Retag 
         run: |
-          echo -e "FROM ${{ env.SOURCE }}" > Dockerfile
-          docker build -t ${{ env.TARGET }} .
-  
+          docker tag ${{ env.SOURCE }} ${{ env.TARGET }}
+          
       - name: Push New Docker Image Under This Repo
         run: |
           docker push ${{ env.TARGET }}
