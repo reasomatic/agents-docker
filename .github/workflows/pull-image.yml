@@ -27,12 +27,12 @@ jobs:
         run: |
           docker image ls
           docker ps
-          docker pull ghcr.io/reasomatic/hello_docker:latest
+          docker pull ghcr.io/reasomatic/hello_docker:available-v2
           docker image ls
           docker ps
       - name: Build New Docker Image
         run: |
-          docker build -t ghcr.io/reasomatic/hello_docker:latest .
+          docker build -t ghcr.io/reasomatic/hello_docker:available-v2 .
           docker image ls
           docker ps
           
