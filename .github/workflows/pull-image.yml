@@ -31,16 +31,7 @@ jobs:
           docker image ls
           docker ps
 
-      - name: Build New Docker Image
+      - name: Retag and Push Image to Public Repository
         run: |
-          echo -e "FROM ghcr.io/reasomatic/hello_docker:available-v2\n\n# Your modifications here" > Dockerfile
-          docker build -t ghcr.io/reasomatic/agents-docker/hello_docker:final .
-          docker image ls
-          docker ps
-  
-      - name: Push New Docker Image to Public Repository
-        run: |
-          docker push ghcr.io/reasomatic/agents-docker/hello_docker:final
-          docker image ls
-          docker ps
-      
+          docker tag ghcr.io/reasomatic/hello_docker:available-v2 ghcr.io/reasomatic/agents-docker/hello_docker:late
+          docker push ghcr.io/reasomatic/agents-docker/hello_docker:late
