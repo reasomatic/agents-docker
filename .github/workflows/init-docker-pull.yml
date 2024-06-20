@@ -4,6 +4,7 @@ on:
       - main
 
 env: 
+  REGISTRY: ghcr.io
   SOURCE: ghcr.io/reasomatic/agents-docker-private:latest
   TARGET: ghcr.io/reasomatic/agents-docker:latest
   
