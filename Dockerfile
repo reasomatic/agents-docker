@@ -1,4 +1,4 @@
-FROM ghcr.io/reasomatic/agents-docker:latest
+FROM ghcr.io/reasomatic/agents-docker:main
 
 RUN useradd -m -u 1000 user
 WORKDIR /app 
